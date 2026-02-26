@@ -1,5 +1,5 @@
 {
-  description = "__DISPLAY_NAME__ standards body repository";
+  description = "Observability standards body repository";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";

@@ -1,5 +1,5 @@
 /**
- * Registry of __DISPLAY_NAME__ specification modules (conformance checks)
+ * Registry of Observability specification modules (conformance checks)
  *
  * Separated from the main registry to avoid pulling node:fs/node:child_process
  * into contexts that only need spec metadata.
@@ -9,20 +9,20 @@ import type { SpecificationModule } from "@standards-body/core-specifications/co
 import { createRegistry } from "@standards-body/core-specifications/core";
 import { getActiveSpecifications, SPECIFICATIONS } from "./registry.ts";
 
-const __NAMESPACE___NAMESPACE = "__NAMESPACE__";
-const __NAMESPACE___DISPLAY_NAME = "__DISPLAY_NAME__";
+const OBS_NAMESPACE = "OBS";
+const OBS_DISPLAY_NAME = "Observability";
 
 /**
- * All registered __DISPLAY_NAME__ specification modules (executable checks)
+ * All registered Observability specification modules (executable checks)
  */
 export const SPECIFICATION_MODULES: SpecificationModule[] = [];
 
 /**
- * The __DISPLAY_NAME__ specification registry (specs + modules bundled).
+ * The Observability specification registry (specs + modules bundled).
  */
-export const __NAMESPACE___REGISTRY = createRegistry(
-	__NAMESPACE___NAMESPACE,
-	__NAMESPACE___DISPLAY_NAME,
+export const OBS_REGISTRY = createRegistry(
+	OBS_NAMESPACE,
+	OBS_DISPLAY_NAME,
 	SPECIFICATIONS,
 	SPECIFICATION_MODULES,
 );

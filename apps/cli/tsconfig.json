@@ -5,7 +5,7 @@
 		"paths": {
 			"@standards-body/core-specifications": ["../../../standards-body-core-main/packages/specifications/src/index.ts"],
 			"@standards-body/core-specifications/*": ["../../../standards-body-core-main/packages/specifications/src/*.ts"],
-			"@standards-body/__NAME__-specifications": ["../../packages/specifications/src/index.ts"]
+			"@standards-body/observability-specifications": ["../../packages/specifications/src/index.ts"]
 		}
 	},
 	"include": ["src/**/*"]

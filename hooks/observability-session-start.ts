@@ -1,9 +1,6 @@
 #!/usr/bin/env bun
 /**
  * SessionStart hook — run conformance checks and report status.
- *
- * After instantiation from template, rename this file to {name}-session-start.ts
- * (e.g., observability-session-start.ts) and update hooks.json references.
  */
 
 import { execSync } from "node:child_process";
@@ -18,11 +15,10 @@ async function main(): Promise<void> {
 	}
 
 	// Persist plugin root for subagent Bash commands
-	// NOTE: Rename STANDARDS_BODY_TEMPLATE_ROOT to match your plugin (e.g., STANDARDS_BODY_OBSERVABILITY_ROOT)
 	const envFile = process.env["CLAUDE_ENV_FILE"];
 	if (envFile) {
 		const { appendFileSync } = await import("node:fs");
-		appendFileSync(envFile, `export STANDARDS_BODY_TEMPLATE_ROOT="${PLUGIN_ROOT}"\n`);
+		appendFileSync(envFile, `export STANDARDS_BODY_OBSERVABILITY_ROOT="${PLUGIN_ROOT}"\n`);
 	}
 
 	const projectDir = process.env["CLAUDE_PROJECT_DIR"] ?? process.cwd();
@@ -51,17 +47,17 @@ async function main(): Promise<void> {
 			JSON.stringify({
 				hookSpecificOutput: {
 					hookEventName: "SessionStart" as const,
-					additionalContext: `[standards-body-__NAME__] ${output} (${String(elapsedMs)}ms)`,
+					additionalContext: `[standards-body-observability] ${output} (${String(elapsedMs)}ms)`,
 				},
 			}) + "\n",
 		);
 	} else {
 		process.stdout.write(
 			JSON.stringify({
-				systemMessage: `[standards-body-__NAME__] SessionStart hook error: bin/run spec check failed (exit ${String(exitCode)})`,
+				systemMessage: `[standards-body-observability] SessionStart hook error: bin/run spec check failed (exit ${String(exitCode)})`,
 				hookSpecificOutput: {
 					hookEventName: "SessionStart" as const,
-					additionalContext: `Hook error from standards-body-__NAME__:\n\nCommand: bin/run spec check $PROJECT_DIR --format hook\nExit code: ${String(exitCode)}\nOutput: ${output}`,
+					additionalContext: `Hook error from standards-body-observability:\n\nCommand: bin/run spec check $PROJECT_DIR --format hook\nExit code: ${String(exitCode)}\nOutput: ${output}`,
 				},
 			}) + "\n",
 		);
@@ -71,7 +67,7 @@ async function main(): Promise<void> {
 main().catch((err) => {
 	process.stdout.write(
 		JSON.stringify({
-			systemMessage: `[standards-body-__NAME__] SessionStart hook crashed: ${err instanceof Error ? err.message : String(err)}`,
+			systemMessage: `[standards-body-observability] SessionStart hook crashed: ${err instanceof Error ? err.message : String(err)}`,
 		}) + "\n",
 	);
 });

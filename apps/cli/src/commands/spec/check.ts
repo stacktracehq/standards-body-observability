@@ -1,6 +1,6 @@
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import type { ConformanceResult, SpecificationModule } from "@standards-body/__NAME__-specifications";
+import type { ConformanceResult, SpecificationModule } from "@standards-body/observability-specifications";
 import { ConformanceConfig } from "@standards-body/core-specifications/core";
 import {
 	argument,
@@ -49,7 +49,7 @@ export async function specCheck(args: {
 	format: string | undefined;
 }): Promise<number> {
 	const { getActiveSpecificationModules, getSpecificationModule } = await import(
-		"@standards-body/__NAME__-specifications/module-registry"
+		"@standards-body/observability-specifications/module-registry"
 	);
 
 	const resolved = path.resolve(args.target);
@@ -133,11 +133,11 @@ function outputResults(
 	if (args.format === "hook") {
 		if (allConformant) {
 			const allIds = results.map((r) => r.specId).join(", ");
-			process.stdout.write(`__DISPLAY_NAME__: READY (${allIds})\n`);
+			process.stdout.write(`Observability: READY (${allIds})\n`);
 		} else {
 			const failed = results.filter((r) => !r.conformant);
 			const failedIds = failed.map((r) => r.specId).join(", ");
-			process.stdout.write(`__DISPLAY_NAME__: VIOLATIONS (${failedIds})\n`);
+			process.stdout.write(`Observability: VIOLATIONS (${failedIds})\n`);
 			const skills = failed
 				.map((r) => `/conformance-testing-${r.specId.toLowerCase()}`)
 				.join(" ");

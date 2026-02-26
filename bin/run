@@ -2,10 +2,8 @@
 
 set -euo pipefail
 
-# NOTE: Rename STANDARDS_BODY_TEMPLATE_ROOT to match your plugin
-# (e.g., STANDARDS_BODY_OBSERVABILITY_ROOT)
-if [[ -n "${STANDARDS_BODY_TEMPLATE_ROOT:-}" ]]; then
-    REPO="$STANDARDS_BODY_TEMPLATE_ROOT"
+if [[ -n "${STANDARDS_BODY_OBSERVABILITY_ROOT:-}" ]]; then
+    REPO="$STANDARDS_BODY_OBSERVABILITY_ROOT"
 elif [[ -n "${CLAUDE_PLUGIN_ROOT:-}" ]]; then
     REPO="$CLAUDE_PLUGIN_ROOT"
 else

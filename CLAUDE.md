@@ -16,9 +16,9 @@ The Claude Code project is evolving many times every day, and any knowledge you 
 
 Before attempting to modify the plugin, including changes to skills, agents or hooks, you must first read https://code.claude.com/docs/llms.txt and seek out the appropriate live documentation.
 
-# Standards Body: __DISPLAY_NAME__
+# Standards Body: Observability
 
-This repository defines __DISPLAY_NAME__ standards — __DOMAIN_DESCRIPTION__.
+This repository defines Observability standards — Observability standards: OTEL Collector, Loki, LogTape instrumentation, and hook logging conventions.
 
 ## Active Specifications
 
@@ -28,8 +28,8 @@ No specifications defined yet. This is a freshly bootstrapped standards body.
 
 On session start, a hook runs `bin/run spec check "$PROJECT_DIR" --format hook` producing:
 
-- **`__DISPLAY_NAME__: READY`** — all specifications conformant, no action needed
-- **`__DISPLAY_NAME__: VIOLATIONS (...)`** — listed specs have non-conformances
+- **`Observability: READY`** — all specifications conformant, no action needed
+- **`Observability: VIOLATIONS (...)`** — listed specs have non-conformances
 
 To remediate, invoke the corresponding skill: `/conformance-testing-{spec-id}`. The skill forks a remediation-agent that parses violations, applies fixes, and verifies convergence to READY.
 
@@ -55,9 +55,9 @@ hooks/                # Session hooks (conformance check on start)
 
 ```bash
 run spec list                              # List all specifications
-run spec info __NAMESPACE__-SPEC-001       # Show specification details
+run spec info OBS-SPEC-001       # Show specification details
 run spec check .                           # Check all specs for conformance
-run spec check . --spec __NAMESPACE__-001  # Check single spec
+run spec check . --spec OBS-001  # Check single spec
 run spec check . --format hook             # Hook-friendly output
 run hooks inspect                          # Inspect hook traces from latest session
 run hooks inspect --session <id>           # Inspect specific session

@@ -5,7 +5,7 @@
 HOOK_SCRIPT="$1"; shift
 
 if ! command -v bun >/dev/null 2>&1; then
-  echo '{"systemMessage":"[standards-body-__NAME__] bun not found - cannot run TypeScript hooks"}'
+  echo '{"systemMessage":"[standards-body-observability] bun not found - cannot run TypeScript hooks"}'
   exit 0
 fi
 

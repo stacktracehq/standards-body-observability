@@ -1,5 +1,5 @@
 {
-	"name": "standards-body-__NAME__",
+	"name": "standards-body-observability",
 	"private": true,
 	"packageManager": "pnpm@10.28.0",
 	"scripts": {

@@ -1,4 +1,4 @@
-import type { Specification } from "@standards-body/__NAME__-specifications";
+import type { Specification } from "@standards-body/observability-specifications";
 import {
 	type Directive,
 	getAllSpecifications,
@@ -6,7 +6,7 @@ import {
 	getSpecificationsByDirective,
 	getSpecificationsByStatus,
 	type Status,
-} from "@standards-body/__NAME__-specifications";
+} from "@standards-body/observability-specifications";
 import { constant, message, object, option, optional, string } from "../../stdlib.ts";
 
 /**

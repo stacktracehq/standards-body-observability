@@ -1,7 +1,7 @@
 /**
- * @standards-body/__NAME__-specifications
+ * @standards-body/observability-specifications
  *
- * __DISPLAY_NAME__ specification registry.
+ * Observability specification registry.
  * No specifications defined yet.
  */
 

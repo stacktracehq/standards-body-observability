@@ -1,8 +1,8 @@
 <!-- GENERATED FILE - DO NOT EDIT -->
 
-# standards-body-__NAME__
+# standards-body-observability
 
-A pnpm + Turborepo monorepo using Bun as the runtime. __DISPLAY_NAME__ standards body — __DOMAIN_DESCRIPTION__.
+A pnpm + Turborepo monorepo using Bun as the runtime. Observability standards body — Observability standards: OTEL Collector, Loki, LogTape instrumentation, and hook logging conventions.
 
 ## Active Specifications
 

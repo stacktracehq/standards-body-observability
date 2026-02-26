@@ -6,7 +6,7 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "${CLAUDE_PLUGIN_ROOT}/hooks/run-hook.sh ${CLAUDE_PLUGIN_ROOT}/hooks/session-start.ts",
+						"command": "${CLAUDE_PLUGIN_ROOT}/hooks/run-hook.sh ${CLAUDE_PLUGIN_ROOT}/hooks/observability-session-start.ts",
 						"timeout": 10000
 					}
 				]
@@ -18,7 +18,7 @@
 				"hooks": [
 					{
 						"type": "command",
-						"command": "${CLAUDE_PLUGIN_ROOT}/hooks/run-hook.sh ${CLAUDE_PLUGIN_ROOT}/hooks/post-edit-format.ts",
+						"command": "${CLAUDE_PLUGIN_ROOT}/hooks/run-hook.sh ${CLAUDE_PLUGIN_ROOT}/hooks/observability-post-edit-format.ts",
 						"timeout": 15000
 					}
 				]

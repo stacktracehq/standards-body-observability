@@ -1,5 +1,5 @@
 {
-	"name": "@standards-body/__NAME__-cli",
+	"name": "@standards-body/observability-cli",
 	"version": "0.0.1",
 	"type": "module",
 	"main": "src/index.ts",
@@ -15,7 +15,7 @@
 		"@optique/core": "0.9.2",
 		"@optique/run": "0.9.2",
 		"@standards-body/core-specifications": "link:../../../standards-body-core-main/packages/specifications",
-		"@standards-body/__NAME__-specifications": "workspace:*",
+		"@standards-body/observability-specifications": "workspace:*",
 		"ts-pattern": "^5.9.0"
 	}
 }

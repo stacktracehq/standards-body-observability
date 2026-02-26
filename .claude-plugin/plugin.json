@@ -1,6 +1,6 @@
 {
-	"name": "standards-body-__NAME__",
+	"name": "standards-body-observability",
 	"version": "0.0.1",
-	"description": "__DOMAIN_DESCRIPTION__",
+	"description": "Observability standards: OTEL Collector, Loki, LogTape instrumentation, and hook logging conventions",
 	"author": { "name": "Stacktrace HQ" }
 }

@@ -1,4 +1,4 @@
-import { getSpecification } from "@standards-body/__NAME__-specifications";
+import { getSpecification } from "@standards-body/observability-specifications";
 import { argument, constant, message, object, string } from "../../stdlib.ts";
 
 /**

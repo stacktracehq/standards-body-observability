@@ -1,6 +1,6 @@
 {
 	"kind": "standards-body",
-	"namespace": "__NAMESPACE__",
-	"displayName": "__DISPLAY_NAME__",
+	"namespace": "OBS",
+	"displayName": "Observability",
 	"specifications": []
 }

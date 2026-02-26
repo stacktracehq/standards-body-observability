@@ -1,5 +1,5 @@
 /**
- * Registry of all __DISPLAY_NAME__ specifications
+ * Registry of all Observability specifications
  *
  * Provides lookup functions matching the pattern from @standards-body/core-specifications.
  */
@@ -7,7 +7,7 @@
 import type { Specification } from "@standards-body/core-specifications/core";
 
 /**
- * All registered __DISPLAY_NAME__ specifications
+ * All registered Observability specifications
  */
 export const SPECIFICATIONS: Specification[] = [];
 
