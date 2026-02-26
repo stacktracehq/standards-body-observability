@@ -3,9 +3,13 @@ import type {
 	NonConformanceType as NonConformance,
 } from "@standards-body/core-specifications/core";
 
-export async function probeEndpoint(url: string, timeoutMs = 2000): Promise<boolean> {
+export async function probeEndpoint(
+	url: string,
+	timeoutMs = 2000,
+	init?: RequestInit,
+): Promise<boolean> {
 	try {
-		const response = await fetch(url, { signal: AbortSignal.timeout(timeoutMs) });
+		const response = await fetch(url, { signal: AbortSignal.timeout(timeoutMs), ...init });
 		return response.ok;
 	} catch {
 		return false;

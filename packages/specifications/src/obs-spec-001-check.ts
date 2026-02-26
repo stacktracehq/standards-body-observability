@@ -16,7 +16,11 @@ export async function checkOtelCollectorFast(repoRoot: string): Promise<NonConfo
 	void repoRoot;
 	const findings: NonConformance[] = [];
 
-	const reachable = await probeEndpoint(OTEL_COLLECTOR_LOGS_ENDPOINT);
+	const reachable = await probeEndpoint(OTEL_COLLECTOR_LOGS_ENDPOINT, 2000, {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ resourceLogs: [] }),
+	});
 	if (!reachable) {
 		findings.push({
 			message: `OTEL Collector is not reachable at ${OTEL_COLLECTOR_LOGS_ENDPOINT}. The collector must be running as a host service.`,
