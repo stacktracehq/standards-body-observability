@@ -1,7 +1,10 @@
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import type { ConformanceResult, SpecificationModule } from "@standards-body/observability-specifications";
 import { ConformanceConfig } from "@standards-body/core-specifications/core";
+import type {
+	ConformanceResult,
+	SpecificationModule,
+} from "@standards-body/observability-specifications";
 import {
 	argument,
 	constant,

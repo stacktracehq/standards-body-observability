@@ -1,0 +1,64 @@
+{
+  "nodes": {
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1771923393,
+        "narHash": "sha256-Fy0+UXELv9hOE8WjYhJt8fMDLYTU2Dqn3cX4BwoGBos=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "ea7f1f06811ce7fcc81d6c6fd4213150c23edcf2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1768127708,
+        "narHash": "sha256-1Sm77VfZh3mU0F5OqKABNLWxOuDeHIlcFjsXeeiPazs=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "ffbc9f8cbaacfb331b6017d5a5abb21a492c9a38",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "ts-toolchain": "ts-toolchain"
+      }
+    },
+    "ts-toolchain": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "dir": "ts-toolchain",
+        "lastModified": 1769999957,
+        "narHash": "sha256-io8Wc4+4UnecZkZTxuhibGTrrV8f/7DxyhXW1rivAuw=",
+        "ref": "refs/heads/main",
+        "rev": "0e78f4285349814c58f05c713e26ae265e763295",
+        "revCount": 9,
+        "type": "git",
+        "url": "ssh://git@github.com/stacktracehq/flakes"
+      },
+      "original": {
+        "dir": "ts-toolchain",
+        "type": "git",
+        "url": "ssh://git@github.com/stacktracehq/flakes"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
