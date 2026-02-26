@@ -1,0 +1,93 @@
+import {
+	whyStandards,
+	getActiveSpecifications,
+	SPECIFICATIONS,
+} from "@standards-body/core-specifications";
+
+export const activeSpecs = getActiveSpecifications();
+export const allSpecs = SPECIFICATIONS;
+export const repoName = "standards-body-core";
+export const runtime = "Bun";
+export const packageManager = "pnpm";
+export const buildSystem = "Turborepo";
+export const commands = [
+	{ cmd: "pnpm build", desc: "Build all packages" },
+	{ cmd: "pnpm typecheck", desc: "Type check all packages" },
+	{ cmd: "pnpm lint", desc: "Lint all packages (ESLint strictTypeChecked)" },
+	{ cmd: "pnpm format", desc: "Format all packages (Biome)" },
+	{ cmd: "run --help", desc: "Run the CLI (via bin/run wrapper)" },
+];
+export const runWrapperFeatures = [
+	"Auto-installs dependencies if missing (no manual `pnpm install` needed)",
+	"Runs latest TypeScript code directly via Bun (no build step required)",
+	"Added to PATH by `nix develop` shell",
+];
+
+{'<!-- GENERATED FILE - DO NOT EDIT -->'}
+
+# {repoName}
+
+A {packageManager} + {buildSystem} monorepo using {runtime} as the runtime. Core standards body infrastructure — schemas, lifecycle, registry, and meta-specifications.
+
+## Active Specifications
+
+<ul>
+	{activeSpecs.map((spec) => (
+		<li key={spec.id}>
+			<strong>{spec.id}</strong>: {spec.title} ({spec.directive}) — {spec.summary}
+		</li>
+	))}
+</ul>
+
+## Structure
+
+See `apps/` and `packages/` directories for current workspace structure. Key files:
+
+```
+├── apps/cli/           # CLI application (spec list, spec check, spec info)
+├── packages/specifications/  # Zod schemas, registry, specification definitions, conformance checks
+├── bin/run             # Self-bootstrapping CLI entry point
+├── turbo.json          # Turborepo task configuration
+├── pnpm-workspace.yaml # Workspace definition
+└── tsconfig.json       # Shared strict TypeScript config
+```
+
+## Prerequisites
+
+- Nix (provides {runtime} and {packageManager} via `nix develop`)
+
+## Setup
+
+```bash
+nix develop
+pnpm install
+```
+
+## Commands
+
+```bash
+{commands.map((c) => c.cmd.padEnd(17) + "# " + c.desc).join("\n")}
+```
+
+The `bin/run` wrapper:
+
+<ul>
+	{runWrapperFeatures.map((feature, idx) => (
+		<li key={idx}>{feature}</li>
+	))}
+</ul>
+
+## Editor Setup
+
+### Zed
+
+Project settings are committed in `.zed/settings.json`. Install the Biome extension for format-on-save.
+
+### Automatic Environment (Optional)
+
+For automatic `nix develop` when entering the directory, install [direnv](https://direnv.net/) + [nix-direnv](https://github.com/nix-community/nix-direnv), then:
+
+```bash
+echo "use flake" > .envrc
+direnv allow
+```

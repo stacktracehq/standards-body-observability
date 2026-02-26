@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO=$(git rev-parse --show-toplevel)
+cd "$REPO"
+
+START=$SECONDS
+ISSUES=()
+
+# Phase 1: Spec checks
+SPEC_OUTPUT=$(bin/run spec check . --format hook 2>&1) || true
+if [[ "$SPEC_OUTPUT" == *"READY"* ]]; then
+  # Extract spec count dynamically from the READY output (count comma-separated spec IDs)
+  SPEC_COUNT=$(echo "$SPEC_OUTPUT" | grep -oP 'READY \(\K[^)]+' | tr ',' '\n' | wc -l | tr -d ' ')
+  SPEC_SUMMARY="${SPEC_COUNT} specs"
+else
+  ISSUES+=("$SPEC_OUTPUT")
+  SPEC_SUMMARY="specs FAIL"
+fi
+
+# Phase 2: Quality gates (suppress output on success, capture on failure)
+GATES=("typecheck" "build" "lint" "format" "test")
+GATES_PASSED=0
+for gate in "${GATES[@]}"; do
+  if GATE_OUTPUT=$(pnpm "$gate" 2>&1); then
+    GATES_PASSED=$((GATES_PASSED + 1))
+  else
+    TAIL=$(echo "$GATE_OUTPUT" | tail -20)
+    ISSUES+=("GATE: pnpm $gate failed (last 20 lines):" "$TAIL")
+    break
+  fi
+done
+
+# Phase 3: Git status
+PORCELAIN=$(git status --porcelain)
+if [[ -z "$PORCELAIN" ]]; then
+  GIT_LABEL="git clean"
+else
+  COUNT=$(echo "$PORCELAIN" | wc -l | tr -d ' ')
+  GIT_LABEL="$COUNT uncommitted"
+  ISSUES+=("GIT: $COUNT uncommitted changes")
+fi
+
+ELAPSED=$(( SECONDS - START ))
+
+if [[ ${#ISSUES[@]} -eq 0 ]]; then
+  echo "READY ($SPEC_SUMMARY, $GATES_PASSED gates, $GIT_LABEL) [${ELAPSED}s]"
+  exit 0
+else
+  echo "ISSUES:"
+  for issue in "${ISSUES[@]}"; do
+    echo "  $issue"
+  done
+  echo ""
+  echo "Use 'bin/run spec check .' for detailed spec output."
+  exit 1
+fi

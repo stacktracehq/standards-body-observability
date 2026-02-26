@@ -1,0 +1,21 @@
+{
+	"name": "@standards-body/__NAME__-cli",
+	"version": "0.0.1",
+	"type": "module",
+	"main": "src/index.ts",
+	"scripts": {
+		"build": "echo 'no build step'",
+		"typecheck": "tsc --noEmit",
+		"lint": "eslint --max-warnings 0 src/",
+		"format": "biome check --write src/",
+		"format:check": "biome check src/",
+		"test": "echo 'no tests for CLI app'"
+	},
+	"dependencies": {
+		"@optique/core": "0.9.2",
+		"@optique/run": "0.9.2",
+		"@standards-body/core-specifications": "link:../../../standards-body-core-main/packages/specifications",
+		"@standards-body/__NAME__-specifications": "workspace:*",
+		"ts-pattern": "^5.9.0"
+	}
+}

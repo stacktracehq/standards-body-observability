@@ -1,0 +1,16 @@
+# Prettier is only used for MDX files
+# Biome handles everything else
+
+# Ignore everything by default
+*
+
+# Only format MDX files
+!*.mdx
+!**/*.mdx
+
+# But still ignore common directories
+node_modules/
+dist/
+build/
+.turbo/
+.direnv/

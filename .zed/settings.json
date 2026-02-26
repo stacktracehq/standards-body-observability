@@ -1,0 +1,46 @@
+{
+	"load_direnv": "shell_hook",
+	"languages": {
+		"JavaScript": {
+			"formatter": { "language_server": { "name": "biome" } },
+			"code_actions_on_format": { "source.organizeImports.biome": true }
+		},
+		"TypeScript": {
+			"formatter": { "language_server": { "name": "biome" } },
+			"code_actions_on_format": { "source.organizeImports.biome": true }
+		},
+		"TSX": {
+			"formatter": { "language_server": { "name": "biome" } },
+			"code_actions_on_format": { "source.organizeImports.biome": true }
+		},
+		"JSON": {
+			"formatter": { "language_server": { "name": "biome" } }
+		},
+		"JSONC": {
+			"formatter": { "language_server": { "name": "biome" } }
+		},
+		"MDX": {
+			"formatter": {
+				"external": {
+					"command": "bun",
+					"arguments": [
+						"node_modules/prettier/bin/prettier.cjs",
+						"--stdin-filepath",
+						"{buffer_path}"
+					]
+				}
+			}
+		}
+	},
+	"format_on_save": "on",
+	"tab_size": 4,
+	"lsp": {
+		"mdx-analyzer": {
+			"initialization_options": {
+				"typescript": {
+					"enabled": true
+				}
+			}
+		}
+	}
+}

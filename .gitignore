@@ -1,0 +1,33 @@
+# Nix
+result
+result-*
+.direnv/
+
+# Environment files with secrets
+.env
+.env.local
+.env.*.local
+
+# Node.js
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Bun runtime (we use pnpm for package management)
+bun.lock
+bun.lockb
+
+# Turborepo
+.turbo/
+
+# Scratch directory
+scratch/
+
+# MDX temporary files
+.__mdx-temp-*.mjs
+
+# Generated completions
+.cli-completion.bash
+
+# OS
+.DS_Store

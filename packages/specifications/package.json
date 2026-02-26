@@ -1,0 +1,22 @@
+{
+	"name": "@standards-body/__NAME__-specifications",
+	"version": "0.0.1",
+	"type": "module",
+	"main": "src/index.ts",
+	"exports": {
+		".": "./src/index.ts",
+		"./module-registry": "./src/module-registry.ts"
+	},
+	"scripts": {
+		"build": "echo 'no build step'",
+		"typecheck": "tsc --noEmit",
+		"lint": "eslint --max-warnings 0 src/",
+		"format": "biome check --write src/",
+		"format:check": "biome check src/",
+		"test": "echo 'no tests yet'"
+	},
+	"dependencies": {
+		"@standards-body/core-specifications": "link:../../../standards-body-core-main/packages/specifications",
+		"zod": "^4.3.6"
+	}
+}
