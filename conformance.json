@@ -2,5 +2,5 @@
 	"kind": "standards-body",
 	"namespace": "OBS",
 	"displayName": "Observability",
-	"specifications": []
+	"specifications": ["OBS-SPEC-001", "OBS-SPEC-002", "OBS-SPEC-003", "OBS-SPEC-004"]
 }

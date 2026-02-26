@@ -22,7 +22,10 @@ This repository defines Observability standards — Observability standards: OTE
 
 ## Active Specifications
 
-No specifications defined yet. This is a freshly bootstrapped standards body.
+- **OBS-SPEC-001**: OTEL Collector Service — OTEL Collector must run as host service on ports 4317/4318
+- **OBS-SPEC-002**: Loki Log Backend — Loki must run as host service accepting OTLP ingestion
+- **OBS-SPEC-003**: TypeScript LogTape + OTEL Sink — TypeScript projects must use LogTape with @logtape/otel
+- **OBS-SPEC-004**: Hook Logging Convention — Hooks must log start/end with timing via LogTape
 
 ## Conformance Workflow
 

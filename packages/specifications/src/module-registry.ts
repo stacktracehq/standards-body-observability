@@ -7,15 +7,22 @@
 
 import type { SpecificationModule } from "@standards-body/core-specifications/core";
 import { createRegistry } from "@standards-body/core-specifications/core";
+import { OBS_DISPLAY_NAME, OBS_NAMESPACE } from "./constants.ts";
+import { OBS_SPEC_001_MODULE } from "./obs-spec-001-module.ts";
+import { OBS_SPEC_002_MODULE } from "./obs-spec-002-module.ts";
+import { OBS_SPEC_003_MODULE } from "./obs-spec-003-module.ts";
+import { OBS_SPEC_004_MODULE } from "./obs-spec-004-module.ts";
 import { getActiveSpecifications, SPECIFICATIONS } from "./registry.ts";
-
-const OBS_NAMESPACE = "OBS";
-const OBS_DISPLAY_NAME = "Observability";
 
 /**
  * All registered Observability specification modules (executable checks)
  */
-export const SPECIFICATION_MODULES: SpecificationModule[] = [];
+export const SPECIFICATION_MODULES: SpecificationModule[] = [
+	OBS_SPEC_001_MODULE,
+	OBS_SPEC_002_MODULE,
+	OBS_SPEC_003_MODULE,
+	OBS_SPEC_004_MODULE,
+];
 
 /**
  * The Observability specification registry (specs + modules bundled).
