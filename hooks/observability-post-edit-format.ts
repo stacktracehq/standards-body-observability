@@ -4,6 +4,9 @@
  */
 
 import { execSync } from "node:child_process";
+import { getLogger } from "@logtape/logtape";
+
+const logger = getLogger(["standards-body", "observability", "hooks", "post-edit-format"]);
 
 async function main(): Promise<void> {
 	// Read stdin (required by hook protocol, even if unused)
@@ -12,6 +15,9 @@ async function main(): Promise<void> {
 	}
 
 	const projectDir = process.env["CLAUDE_PROJECT_DIR"] ?? process.cwd();
+	const sessionId = process.env["CLAUDE_SESSION_ID"] ?? "unknown";
+	const startMs = Date.now();
+	logger.info("Hook started", { sessionId, event: "PostToolUse" });
 
 	try {
 		execSync("pnpm format", {
@@ -20,6 +26,8 @@ async function main(): Promise<void> {
 			cwd: projectDir,
 			stdio: ["pipe", "pipe", "pipe"],
 		});
+		const durationMs = Date.now() - startMs;
+		logger.info("Hook completed", { sessionId, durationMs });
 		// Silent success — no output needed
 		process.stdout.write("{}\n");
 	} catch (err) {
@@ -31,6 +39,8 @@ async function main(): Promise<void> {
 			.slice(-20)
 			.join("\n");
 
+		const durationMs = Date.now() - startMs;
+		logger.info("Hook completed with error", { sessionId, durationMs, exitCode });
 		process.stdout.write(
 			JSON.stringify({
 				systemMessage: `[standards-body-observability] PostToolUse hook error: pnpm format failed (exit ${String(exitCode)})`,

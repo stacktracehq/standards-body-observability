@@ -4,6 +4,9 @@
  */
 
 import { execSync } from "node:child_process";
+import { getLogger } from "@logtape/logtape";
+
+const logger = getLogger(["standards-body", "observability", "hooks", "session-start"]);
 
 const PLUGIN_ROOT =
 	process.env["CLAUDE_PLUGIN_ROOT"] ?? new URL("..", import.meta.url).pathname.replace(/\/$/, "");
@@ -23,6 +26,8 @@ async function main(): Promise<void> {
 
 	const projectDir = process.env["CLAUDE_PROJECT_DIR"] ?? process.cwd();
 	const startMs = Date.now();
+	const sessionId = process.env["CLAUDE_SESSION_ID"] ?? "unknown";
+	logger.info("Hook started", { sessionId, event: "SessionStart" });
 
 	let output: string;
 	let exitCode: number;
@@ -40,6 +45,7 @@ async function main(): Promise<void> {
 	}
 
 	const elapsedMs = Date.now() - startMs;
+	logger.info("Hook completed", { sessionId, durationMs: elapsedMs });
 
 	// Check if output matches the expected format from `run spec check --format hook`
 	if (output.includes("READY") || output.includes("VIOLATIONS")) {

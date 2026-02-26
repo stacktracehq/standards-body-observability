@@ -12,6 +12,8 @@
 		"test": "echo 'no tests for CLI app'"
 	},
 	"dependencies": {
+		"@logtape/logtape": "^2.0.2",
+		"@logtape/otel": "^2.0.2",
 		"@optique/core": "0.9.2",
 		"@optique/run": "0.9.2",
 		"@standards-body/core-specifications": "link:../../../standards-body-core-main/packages/specifications",
