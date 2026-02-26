@@ -23,7 +23,33 @@ export async function checkLokiThorough(_repoRoot: string): Promise<NonConforman
 		return findings;
 	}
 
-	const otlpReachable = await probeEndpoint(LOKI_OTLP_ENDPOINT);
+	const otlpReachable = await probeEndpoint(LOKI_OTLP_ENDPOINT, 2000, {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({
+			resourceLogs: [
+				{
+					resource: {
+						attributes: [
+							{ key: "service.name", value: { stringValue: "conformance-probe" } },
+						],
+					},
+					scopeLogs: [
+						{
+							scope: {},
+							logRecords: [
+								{
+									timeUnixNano: String(Date.now() * 1_000_000),
+									body: { stringValue: "conformance-probe" },
+									severityText: "INFO",
+								},
+							],
+						},
+					],
+				},
+			],
+		}),
+	});
 	if (!otlpReachable) {
 		findings.push({
 			message: `Loki OTLP ingestion endpoint is not reachable at ${LOKI_OTLP_ENDPOINT}. OTLP ingestion must be enabled.`,
