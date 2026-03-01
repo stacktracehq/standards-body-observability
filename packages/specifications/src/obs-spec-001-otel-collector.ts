@@ -30,7 +30,7 @@ processors:
     limit_mib: 512
 
 exporters:
-  otlphttp:
+  otlp_http:
     endpoint: http://localhost:3100/otlp
 
 service:
@@ -38,7 +38,7 @@ service:
     logs:
       receivers: [otlp]
       processors: [memory_limiter]
-      exporters: [otlphttp]`,
+      exporters: [otlp_http]`,
 			language: "yaml",
 		},
 	],
@@ -53,7 +53,7 @@ service:
 			"Create a config file at ~/.config/otelcol/config.yaml (Linux) or ~/Library/otelcol/config.yaml (macOS).",
 			"Configure OTLP receivers on ports 4317 (gRPC) and 4318 (HTTP).",
 			"Add a memory_limiter processor with appropriate limits.",
-			"Configure at least one exporter (e.g., otlphttp to Loki).",
+			"Configure at least one exporter (e.g., otlp_http to Loki).",
 			"Create a user-level systemd unit (~/.config/systemd/user/otelcol.service) or launchd agent.",
 			"If running as a system-level service, migrate to a user-level service and remove the system unit.",
 			"Enable loginctl enable-linger to persist the service across logouts (Linux).",
