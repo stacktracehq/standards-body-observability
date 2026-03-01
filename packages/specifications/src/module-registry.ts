@@ -12,6 +12,7 @@ import { OBS_SPEC_001_MODULE } from "./obs-spec-001-module.ts";
 import { OBS_SPEC_002_MODULE } from "./obs-spec-002-module.ts";
 import { OBS_SPEC_003_MODULE } from "./obs-spec-003-module.ts";
 import { OBS_SPEC_004_MODULE } from "./obs-spec-004-module.ts";
+import { OBS_SPEC_005_MODULE } from "./obs-spec-005-module.ts";
 import { getActiveSpecifications, SPECIFICATIONS } from "./registry.ts";
 
 /**
@@ -22,6 +23,7 @@ export const SPECIFICATION_MODULES: SpecificationModule[] = [
 	OBS_SPEC_002_MODULE,
 	OBS_SPEC_003_MODULE,
 	OBS_SPEC_004_MODULE,
+	OBS_SPEC_005_MODULE,
 ];
 
 /**

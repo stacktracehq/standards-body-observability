@@ -17,6 +17,9 @@ export type {
 export { isSystemLevelService, makeResult, probeEndpoint } from "./check-helpers.ts";
 // Constants
 export {
+	GRAFANA_DATASOURCES_ENDPOINT,
+	GRAFANA_HEALTH_ENDPOINT,
+	GRAFANA_PORT,
 	LOKI_OTLP_ENDPOINT,
 	LOKI_PORT,
 	LOKI_READY_ENDPOINT,
@@ -32,6 +35,7 @@ export { OBS_SPEC_001 } from "./obs-spec-001-otel-collector.ts";
 export { OBS_SPEC_002 } from "./obs-spec-002-loki-backend.ts";
 export { OBS_SPEC_003 } from "./obs-spec-003-logtape-otel.ts";
 export { OBS_SPEC_004 } from "./obs-spec-004-hook-logging.ts";
+export { OBS_SPEC_005 } from "./obs-spec-005-grafana.ts";
 
 // Registry (metadata only)
 export {
