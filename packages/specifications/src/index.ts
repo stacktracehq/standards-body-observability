@@ -14,7 +14,7 @@ export type {
 	StatusType as Status,
 } from "@standards-body/core-specifications/core";
 // Shared helpers
-export { makeResult, probeEndpoint } from "./check-helpers.ts";
+export { isSystemLevelService, makeResult, probeEndpoint } from "./check-helpers.ts";
 // Constants
 export {
 	LOKI_OTLP_ENDPOINT,

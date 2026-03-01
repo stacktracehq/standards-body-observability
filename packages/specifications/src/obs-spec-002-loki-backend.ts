@@ -9,9 +9,10 @@ export const OBS_SPEC_002 = Specification.parse({
 	status: "active",
 	scope: "every-project",
 	category: "infrastructure",
-	summary: "Loki MUST run as a host system service accepting OTLP log ingestion.",
+	summary:
+		"Loki MUST run as a user-level systemd service (Linux) or launchd agent (macOS) accepting OTLP log ingestion.",
 	rationale:
-		"Loki provides centralized log storage and querying for all observed services. By accepting OTLP ingestion natively, it integrates seamlessly with the OTEL Collector pipeline. Running it as a host service ensures logs persist across project sessions.",
+		"Loki provides centralized log storage and querying for all observed services. By accepting OTLP ingestion natively, it integrates seamlessly with the OTEL Collector pipeline. Running it as a user-level service ensures logs persist across project sessions without requiring elevated privileges. System-level (root) services are non-conformant because they require sudo for management, hindering autonomous agent workflows.",
 	examples: [
 		{
 			title: "Verify Loki readiness",
@@ -30,13 +31,16 @@ export const OBS_SPEC_002 = Specification.parse({
 	logicalConformanceTestingProcedure: {
 		fast: 'HTTP probe http://localhost:3100/ready — returns 200 with body containing "ready" if Loki is healthy.',
 		thorough:
-			"Fast check plus: probe the OTLP ingestion endpoint at http://localhost:3100/otlp/v1/logs to verify Loki accepts OTLP log data.",
+			"Fast check plus: probe the OTLP ingestion endpoint at http://localhost:3100/otlp/v1/logs to verify Loki accepts OTLP log data, and confirm the service is NOT running as a system-level systemd unit.",
 	},
 	remediation: {
 		steps: [
-			"Install Loki (e.g., via binary download or package manager).",
-			"Configure Loki to listen on port 3100 with OTLP ingestion enabled.",
-			"Start Loki as a system service (systemd on Linux, launchd on macOS).",
+			"Install Loki (e.g., via binary download).",
+			"Create config at ~/.config/loki/config.yaml with OTLP ingestion enabled on port 3100.",
+			"Create a user-level systemd unit (~/.config/systemd/user/loki.service) or launchd agent.",
+			"If running as a system-level service, migrate to a user-level service and remove the system unit.",
+			"Enable loginctl enable-linger to persist the service across logouts (Linux).",
+			"Start via: systemctl --user enable --now loki",
 			"Verify readiness: curl -s http://localhost:3100/ready",
 			"Configure the OTEL Collector to export to http://localhost:3100/otlp.",
 		],

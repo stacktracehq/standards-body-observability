@@ -10,9 +10,9 @@ export const OBS_SPEC_001 = Specification.parse({
 	scope: "every-project",
 	category: "infrastructure",
 	summary:
-		"The OpenTelemetry Collector MUST run as a host system service listening on standard OTLP ports (4317 gRPC, 4318 HTTP).",
+		"The OpenTelemetry Collector MUST run as a user-level systemd service (Linux) or launchd agent (macOS) listening on standard OTLP ports (4317 gRPC, 4318 HTTP).",
 	rationale:
-		"A locally running OTEL Collector provides a consistent telemetry ingestion point for all projects. It decouples application instrumentation from backend storage, allowing exporters to be reconfigured without changing application code. The memory_limiter processor prevents runaway memory usage on the host.",
+		"A locally running OTEL Collector provides a consistent telemetry ingestion point for all projects. It decouples application instrumentation from backend storage, allowing exporters to be reconfigured without changing application code. The memory_limiter processor prevents runaway memory usage on the host. Running as a user-level service avoids requiring elevated privileges, enabling autonomous agent workflows. System-level (root) services are non-conformant.",
 	examples: [
 		{
 			title: "Minimal OTEL Collector config with memory limiter",
@@ -45,16 +45,19 @@ service:
 	logicalConformanceTestingProcedure: {
 		fast: "HTTP probe http://localhost:4318/v1/logs — returns 200 if the collector is listening on the standard OTLP HTTP port.",
 		thorough:
-			"Fast check plus: read the OTEL Collector config file (/etc/otelcol/config.yaml on Linux, ~/Library/otelcol/config.yaml on macOS), validate it contains a memory_limiter processor, and verify at least one exporter is configured.",
+			"Fast check plus: read the OTEL Collector config file (~/.config/otelcol/config.yaml on Linux, ~/Library/otelcol/config.yaml on macOS), validate it contains a memory_limiter processor, verify at least one exporter is configured, and confirm the service is NOT running as a system-level systemd unit.",
 	},
 	remediation: {
 		steps: [
-			"Install the OpenTelemetry Collector (e.g., via package manager or binary download).",
-			"Create a config file at /etc/otelcol/config.yaml (Linux) or ~/Library/otelcol/config.yaml (macOS).",
+			"Install the OpenTelemetry Collector (e.g., via binary download).",
+			"Create a config file at ~/.config/otelcol/config.yaml (Linux) or ~/Library/otelcol/config.yaml (macOS).",
 			"Configure OTLP receivers on ports 4317 (gRPC) and 4318 (HTTP).",
 			"Add a memory_limiter processor with appropriate limits.",
 			"Configure at least one exporter (e.g., otlphttp to Loki).",
-			"Start the collector as a system service (systemd on Linux, launchd on macOS).",
+			"Create a user-level systemd unit (~/.config/systemd/user/otelcol.service) or launchd agent.",
+			"If running as a system-level service, migrate to a user-level service and remove the system unit.",
+			"Enable loginctl enable-linger to persist the service across logouts (Linux).",
+			"Start via: systemctl --user enable --now otelcol",
 			"Verify with: curl -s http://localhost:4318/v1/logs",
 		],
 	},

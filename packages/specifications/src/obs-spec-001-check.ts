@@ -2,14 +2,14 @@ import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
 import type { NonConformanceType as NonConformance } from "@standards-body/core-specifications/core";
-import { probeEndpoint } from "./check-helpers.ts";
-import { OTEL_COLLECTOR_CONFIG_LINUX, OTEL_COLLECTOR_LOGS_ENDPOINT } from "./constants.ts";
+import { isSystemLevelService, probeEndpoint } from "./check-helpers.ts";
+import { OTEL_COLLECTOR_LOGS_ENDPOINT } from "./constants.ts";
 
 function getOtelConfigPath(): string {
 	if (os.platform() === "darwin") {
 		return path.join(os.homedir(), "Library", "otelcol", "config.yaml");
 	}
-	return OTEL_COLLECTOR_CONFIG_LINUX;
+	return path.join(os.homedir(), ".config", "otelcol", "config.yaml");
 }
 
 export async function checkOtelCollectorFast(repoRoot: string): Promise<NonConformance[]> {
@@ -23,7 +23,7 @@ export async function checkOtelCollectorFast(repoRoot: string): Promise<NonConfo
 	});
 	if (!reachable) {
 		findings.push({
-			message: `OTEL Collector is not reachable at ${OTEL_COLLECTOR_LOGS_ENDPOINT}. The collector must be running as a host service.`,
+			message: `OTEL Collector is not reachable at ${OTEL_COLLECTOR_LOGS_ENDPOINT}. The collector must be running as a user-level service.`,
 		});
 	}
 
@@ -61,6 +61,16 @@ export async function checkOtelCollectorThorough(_repoRoot: string): Promise<Non
 			file: configPath,
 			message: "OTEL Collector config does not define any exporters.",
 		});
+	}
+
+	const otelUnitNames = ["otelcol", "otelcol-contrib", "opentelemetry-collector"];
+	for (const unit of otelUnitNames) {
+		if (await isSystemLevelService(unit)) {
+			findings.push({
+				message: `OTEL Collector is running as a system-level (root) systemd service (${unit}.service). It must run as a user-level service (systemctl --user) to avoid requiring sudo.`,
+			});
+			break;
+		}
 	}
 
 	return findings;
